@@ -1,22 +1,30 @@
-﻿using TesteTecnico.DbContext.Entities;
+﻿using TesteTecnico.Database;
+using TesteTecnico.Database.Entities;
 
 namespace TesteTecnico.Repository
 {
     public class EFTaskRepository : ITaskRepository
     {
-        public void Add(TaskItems task)
+        private AppDbContext _context;
+
+        public EFTaskRepository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public IReadOnlyList<TaskItems> GetAll()
+        public void Add(TaskItem task)
         {
-            throw new NotImplementedException();
+            _context.taskItems.Add(task);
         }
 
-        public TaskItems? GetById(Guid id)
+        public IReadOnlyList<TaskItem> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.taskItems.ToList();
+        }
+
+        public TaskItem? GetById(Guid id)
+        {
+            return _context.taskItems.FirstOrDefault(x => x.Id == id);
         }
     }
 }

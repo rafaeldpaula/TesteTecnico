@@ -1,22 +1,22 @@
-﻿using TesteTecnico.DbContext.Entities;
+﻿using TesteTecnico.Database.Entities;
 
 namespace TesteTecnico.Repository
 {
     public class InMemoryTaskRepository : ITaskRepository
     {
-        private readonly List<TaskItems> taskList = new List<TaskItems>();
+        private readonly List<TaskItem> taskList = new List<TaskItem>();
 
-        public void Add(TaskItems task)
+        public void Add(TaskItem task)
         {
             taskList.Add(task);
         }
 
-        public IReadOnlyList<TaskItems> GetAll()
+        public IReadOnlyList<TaskItem> GetAll()
         {
             return taskList;
         }
 
-        public TaskItems? GetById(Guid id)
+        public TaskItem? GetById(Guid id)
         {
             return taskList.FirstOrDefault(t => t.Id == id);
         }

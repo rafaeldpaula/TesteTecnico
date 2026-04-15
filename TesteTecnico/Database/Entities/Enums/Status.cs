@@ -1,4 +1,4 @@
-﻿namespace TesteTecnico.DbContext.Entities.Enums
+﻿namespace TesteTecnico.Database.Entities.Enums
 {
     public enum Status
     {

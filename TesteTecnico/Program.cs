@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using TesteTecnico.Database;
 using TesteTecnico.MapEndpoints;
 using TesteTecnico.Repository;
 using TesteTecnico.Services;
@@ -12,8 +14,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Adding the DI
-builder.Services.AddSingleton<ITaskRepository, InMemoryTaskRepository>();
-builder.Services.AddSingleton<ITaskService, TaskService>();
+builder.Services.AddScoped<ITaskRepository, EFTaskRepository>();
+builder.Services.AddScoped<ITaskService, TaskService>();
+
+// Adding EF Core
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

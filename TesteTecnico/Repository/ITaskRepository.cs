@@ -1,12 +1,12 @@
-﻿using TesteTecnico.DbContext.Entities;
+﻿using TesteTecnico.Database.Entities;
 using TesteTecnico.Entities;
 
 namespace TesteTecnico.Repository
 {
     public interface ITaskRepository
     {
-        void Add(TaskItems task);
-        TaskItems? GetById(Guid id);
-        IReadOnlyList<TaskItems> GetAll();
+        void Add(TaskItem task);
+        TaskItem? GetById(Guid id);
+        IReadOnlyList<TaskItem> GetAll();
     }
 }
