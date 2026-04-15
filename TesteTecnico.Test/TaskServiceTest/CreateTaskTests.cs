@@ -1,6 +1,6 @@
 ﻿using Moq;
-using TesteTecnico.DbContext.Entities;
-using TesteTecnico.DbContext.Entities.Enums;
+using TesteTecnico.Database.Entities;
+using TesteTecnico.Database.Entities.Enums;
 using TesteTecnico.Entities;
 using TesteTecnico.Repository;
 using TesteTecnico.Services;
@@ -23,7 +23,7 @@ namespace TesteTecnico.Test.TaskServiceTest
         {
             // Arrange
             var createTask = new CreateTaskRequestDTO("Title 1", "Description 1");
-            var taskItem = new TaskItems() { Id = Guid.NewGuid(), Title = createTask.Title, Description = createTask.Description, Status = Status.NotStarted };
+            var taskItem = new TaskItem() { Id = Guid.NewGuid(), Title = createTask.Title, Description = createTask.Description, Status = Status.NotStarted };
 
             // Act
             var result = _taskService.Create(createTask);
@@ -31,7 +31,7 @@ namespace TesteTecnico.Test.TaskServiceTest
             // Assert
             Assert.True(result.isSuccess);
             Assert.NotNull(result);
-            _taskRepository.Verify(x => x.Add(It.IsAny<TaskItems>()), Times.Once);
+            _taskRepository.Verify(x => x.Add(It.IsAny<TaskItem>()), Times.Once);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace TesteTecnico.Test.TaskServiceTest
         {
             // Arrange
             var createTask = new CreateTaskRequestDTO("", "Description 1");
-            var taskItem = new TaskItems() { Id = Guid.NewGuid(), Title = createTask.Title, Description = createTask.Description, Status = Status.NotStarted };
+            var taskItem = new TaskItem() { Id = Guid.NewGuid(), Title = createTask.Title, Description = createTask.Description, Status = Status.NotStarted };
 
             // Act
             var result = _taskService.Create(createTask);
@@ -58,7 +58,7 @@ namespace TesteTecnico.Test.TaskServiceTest
             // Arrange
             var createTask = new CreateTaskRequestDTO("Title 1", "");
 
-            var taskItem = new TaskItems() { Id = Guid.NewGuid(), Title = createTask.Title, Description = createTask.Description, Status = Status.NotStarted };
+            var taskItem = new TaskItem() { Id = Guid.NewGuid(), Title = createTask.Title, Description = createTask.Description, Status = Status.NotStarted };
             _taskRepository
                 .Setup(x => x.Add(taskItem));
 

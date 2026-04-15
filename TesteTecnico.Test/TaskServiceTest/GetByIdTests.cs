@@ -1,6 +1,6 @@
 ﻿using Moq;
-using TesteTecnico.DbContext.Entities;
-using TesteTecnico.DbContext.Entities.Enums;
+using TesteTecnico.Database.Entities;
+using TesteTecnico.Database.Entities.Enums;
 using TesteTecnico.Repository;
 using TesteTecnico.Services;
 
@@ -22,7 +22,7 @@ namespace TesteTecnico.UnitTests
         {
             // Arrange
             var NewId = Guid.NewGuid();
-            TaskItems taskItem = new TaskItems() { Id = NewId, Title = "Title 1", Description = "Description 1", Status = Status.NotStarted };
+            TaskItem taskItem = new TaskItem() { Id = NewId, Title = "Title 1", Description = "Description 1", Status = Status.NotStarted };
 
             _taskRepository
                 .Setup(x => x.GetById(NewId)).Returns(taskItem);
@@ -48,7 +48,7 @@ namespace TesteTecnico.UnitTests
 
             _taskRepository
                 .Setup(x => x.GetById(NewId))
-                .Returns((TaskItems?)null);
+                .Returns((TaskItem?)null);
 
             // Act
             var response = _taskService.GetById(NewId);
