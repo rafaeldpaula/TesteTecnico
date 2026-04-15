@@ -6,17 +6,17 @@ namespace TesteTecnico.Repository
     {
         private readonly List<TaskItem> taskList = new List<TaskItem>();
 
-        public void Add(TaskItem task)
+        public async Task AddAsync(TaskItem task)
         {
             taskList.Add(task);
         }
 
-        public IReadOnlyList<TaskItem> GetAll()
+        public async Task<IReadOnlyList<TaskItem>> GetAllAsync()
         {
             return taskList;
         }
 
-        public TaskItem? GetById(Guid id)
+        public async Task<TaskItem?> GetByIdAsync(Guid id)
         {
             return taskList.FirstOrDefault(t => t.Id == id);
         }

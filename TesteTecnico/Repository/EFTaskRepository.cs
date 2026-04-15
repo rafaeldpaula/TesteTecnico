@@ -1,4 +1,5 @@
-﻿using TesteTecnico.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using TesteTecnico.Database;
 using TesteTecnico.Database.Entities;
 
 namespace TesteTecnico.Repository
@@ -9,22 +10,23 @@ namespace TesteTecnico.Repository
 
         public EFTaskRepository(AppDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public void Add(TaskItem task)
+        public async Task AddAsync(TaskItem task)
         {
-            _context.taskItems.Add(task);
+            await _context.TaskItems.AddAsync(task);
+            await _context.SaveChangesAsync();
         }
 
-        public IReadOnlyList<TaskItem> GetAll()
+        public async Task<TaskItem?> GetByIdAsync(Guid id)
         {
-            return _context.taskItems.ToList();
+            return await _context.TaskItems.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public TaskItem? GetById(Guid id)
+        public async Task<IReadOnlyList<TaskItem>> GetAllAsync()
         {
-            return _context.taskItems.FirstOrDefault(x => x.Id == id);
+            return await _context.TaskItems.ToListAsync();
         }
     }
 }

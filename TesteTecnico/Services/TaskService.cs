@@ -29,14 +29,14 @@ namespace TesteTecnico.Services
                 Status = Status.NotStarted
             };
 
-            _taskRepository.Add(task);
+            _taskRepository.AddAsync(task).GetAwaiter().GetResult();
 
             return new Result<TaskItem>(task, $"/tasks/{task.Id}");
         }
 
         public Result<TaskItem> GetById(Guid id)
         {
-            var taskFounded = _taskRepository.GetById(id);
+            var taskFounded = _taskRepository.GetByIdAsync(id).GetAwaiter().GetResult();
 
             return taskFounded is null
                 ? new Result<TaskItem>($"Task with id {id} not found.")
@@ -45,7 +45,7 @@ namespace TesteTecnico.Services
 
         public IReadOnlyList<TaskItem> GetAll()
         {
-            return _taskRepository.GetAll();
+            return _taskRepository.GetAllAsync().GetAwaiter().GetResult();
         }
     }
 }

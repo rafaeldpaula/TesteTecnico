@@ -25,7 +25,7 @@ namespace TesteTecnico.UnitTests
             TaskItem taskItem = new TaskItem() { Id = NewId, Title = "Title 1", Description = "Description 1", Status = Status.NotStarted };
 
             _taskRepository
-                .Setup(x => x.GetById(NewId)).Returns(taskItem);
+                .Setup(x => x.GetByIdAsync(NewId)).ReturnsAsync(taskItem);
 
             // Act
             var response = _taskService.GetById(NewId);
@@ -47,8 +47,8 @@ namespace TesteTecnico.UnitTests
             var NewId = Guid.NewGuid();
 
             _taskRepository
-                .Setup(x => x.GetById(NewId))
-                .Returns((TaskItem?)null);
+                .Setup(x => x.GetByIdAsync(NewId))
+                .ReturnsAsync((TaskItem?)null);
 
             // Act
             var response = _taskService.GetById(NewId);

@@ -31,7 +31,7 @@ namespace TesteTecnico.Test.TaskServiceTest
             // Assert
             Assert.True(result.isSuccess);
             Assert.NotNull(result);
-            _taskRepository.Verify(x => x.Add(It.IsAny<TaskItem>()), Times.Once);
+            _taskRepository.Verify(x => x.AddAsync(It.IsAny<TaskItem>()), Times.Once);
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace TesteTecnico.Test.TaskServiceTest
             Assert.NotNull(result);
             Assert.Equal("Title is required!", result.Error);
 
-            _taskRepository.Verify(x => x.Add(taskItem), Times.Never);
+            _taskRepository.Verify(x => x.AddAsync(taskItem), Times.Never);
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace TesteTecnico.Test.TaskServiceTest
 
             var taskItem = new TaskItem() { Id = Guid.NewGuid(), Title = createTask.Title, Description = createTask.Description, Status = Status.NotStarted };
             _taskRepository
-                .Setup(x => x.Add(taskItem));
+                .Setup(x => x.AddAsync(taskItem));
 
 
             // Act
@@ -71,7 +71,7 @@ namespace TesteTecnico.Test.TaskServiceTest
             Assert.NotNull(result);
             Assert.Equal("Description is Required!", result.Error);
 
-            _taskRepository.Verify(x => x.Add(taskItem), Times.Never);
+            _taskRepository.Verify(x => x.AddAsync(taskItem), Times.Never);
         }
     }
 }
